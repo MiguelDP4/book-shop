@@ -4,11 +4,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">Book Shop</a>
+      <%= link_to "Book Shop", root_path, class:"navbar-brand" %>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
             <li class="nav-item">
-              <%= link_to "Log Out", destroy_user_session, class: "nav-link"%>
+              <%= link_to "Log Out", destroy_user_session_path, class: "nav-link", :method => :delete%>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Configure Account", edit_user_registration_path, class: "nav-link"%>
             </li>
         <% else %>
             <li class="nav-item">
@@ -19,10 +22,16 @@
             </li>
         <% end %>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">Search</button>
-      </form>
+      <div class="d-flex">
+        <% if user_signed_in? %>
+          <span class="navbar-brand mb-0 h1">Balance: $<%= current_user.balance %></span>
+        <% end %>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>
+      </div>
+     
     </div>
   </div>
 </nav>
