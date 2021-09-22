@@ -10,7 +10,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       t.string :user_type,          null: false, default: "" # User type can be buyer, seller, admin
-      t.decimal :balance,           null: false, default: 0
+      t.float :balance,           null: false, default: 0
 
       ## Recoverable
       t.string   :reset_password_token
