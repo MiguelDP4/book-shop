@@ -34,4 +34,7 @@ if Rails.env == 'development'
   new_inventory.save
   buyer = User.find_by(email: 'user0@users.com')
   buyer.cart = Cart.new(total: 0, user_id: buyer.id)
+  buyer.cart.add_cart_item(4, 3)
+  buyer.cart.add_cart_item(3, 1)
+  
 end

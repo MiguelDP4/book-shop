@@ -10,6 +10,10 @@ class Cart < ApplicationRecord
         sale_price: inventory.sale_price,
         inventory_id: inventory.id
       )
+
+      inventory.amount -= amount
+      inventory.save
+
       new_cart_item.save
       calculate_total
       self.save
@@ -23,6 +27,11 @@ class Cart < ApplicationRecord
     else
       cart_item.amount -= amount
     end
+
+    inventory = Inventory.find(cart_item.inventory_id)
+    inventory.amount += amount
+    inventory.save
+
     calculate_total
     cart_item.save
     self.save
@@ -40,5 +49,9 @@ class Cart < ApplicationRecord
       self.total = 0
       self.save
     end
+  end
+
+  def clear_cart
+    CartItem.where(cart_id: self.id).destroy_all
   end
 end
