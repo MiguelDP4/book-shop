@@ -1,4 +1,4 @@
 class CartItem < ApplicationRecord
-  has_many :inventories
+  has_one :inventory
   belongs_to :cart, optional: true
 end
