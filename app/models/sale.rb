@@ -1,4 +1,4 @@
 class Sale < ApplicationRecord
-  belongs_to :user, optional: true
-  has_one :inventory
+  belongs_to :user
+  belongs_to :inventory
 end

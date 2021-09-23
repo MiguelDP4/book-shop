@@ -63,7 +63,39 @@ class Cart < ApplicationRecord
     end
   end
 
-  def clear_cart
+  def process_sale
+    buyer = self.user
+    admin_user = User.find_by(user_type: 'admin')
+    cart_items = self.cart_items
+    #checking first if user has enough to buy
+    if buyer.balance >= self.total
+      #going through items in cart to make a distinct sale for inventory owners
+      cart_items.each do |c|
+        new_sale = Sale.new(
+                            amount: c.amount,
+                            unit_price: c.inventory.sale_price,
+                            user_id: c.cart.user_id,
+                            inventory_id: c.inventory_id
+                            )
+        seller_user = User.find(c.inventory.user_id)
+        # generating payment for sellers and adding $1 per book sold to admin account
+        # charging buyer with book cost
+        buyer.balance -= c.amount * c.inventory.sale_price
+        seller_user.balance += (c.inventory.sale_price - 1) * c.amount
+        admin_user.balance += c.amount
+        seller_user.save
+        buyer.save
+        admin_user.save
+        new_sale.save
+      end
+      buyer.cart.clear_cart_after_purchase
+    else
+      flash[:danger] = "You don't have enough balance to pay for this order."
+      return false
+    end
+  end
+
+  def clear_cart_after_purchase
     CartItem.where(cart_id: self.id).destroy_all
   end
 end

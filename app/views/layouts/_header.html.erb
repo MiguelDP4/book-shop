@@ -18,6 +18,9 @@
               <%= link_to "My inventory", inventory_index_path, class: "nav-link"%>
             </li>
           <% end %>
+          <% if current_user.user_type == 'seller' || current_user.user_type == 'admin'%>
+            <%= link_to "Sales", sale_index_path, class: "nav-link"%>
+          <% end %>
         <% else %>
             <li class="nav-item">
               <%= link_to "Sign Up", new_user_registration_path, class: "nav-link"%>
@@ -34,7 +37,7 @@
               <li class="nav-item d-flex">
                 <%= link_to "My Shopping Cart", my_shopping_cart_path, class: "nav-link px-0" %>
                 <span class="nav-link px-0">
-                  (<%= current_user.cart.cart_items.count%>)
+                  (<%= cart_items %>)
                 </span>
               </li>
             <%end%>

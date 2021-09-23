@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_22_030700) do
+ActiveRecord::Schema.define(version: 2021_09_23_025005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2021_09_22_030700) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.bigint "inventory_id", null: false
+    t.index ["inventory_id"], name: "index_sales_on_inventory_id"
     t.index ["user_id"], name: "index_sales_on_user_id"
   end
 
@@ -84,5 +86,6 @@ ActiveRecord::Schema.define(version: 2021_09_22_030700) do
   add_foreign_key "carts", "users"
   add_foreign_key "inventories", "books"
   add_foreign_key "inventories", "users"
+  add_foreign_key "sales", "inventories"
   add_foreign_key "sales", "users"
 end

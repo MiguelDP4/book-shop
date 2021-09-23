@@ -24,12 +24,18 @@ class CartController < ApplicationController
     if user_signed_in?
       current_user.cart.add_cart_item(params[:inventory_id],1)
     else
-      redirect_to root_page
+      redirect_to root_path
     end
   end
 
   def purchase
-    
+    cart = current_user.cart
+    if cart.process_sale
+      flash[:success] = "You've purchased your books, wait for your order to arrive at your address"
+      redirect_to root_path
+    else
+      redirect_to request.referrer
+    end
   end
 
   def delete
