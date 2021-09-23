@@ -8,7 +8,7 @@
       <b>Stock: </b><%= inventory.amount %><br/>
       <%if user_signed_in? %>
         <%if inventory.amount > 0%>
-          <%= link_to "Add to Cart", inventory_add_to_cart_path(params: {inventory_id: inventory.id}), method: :post %>
+          <%= link_to "Add to Cart", cart_add_to_cart_path(params: {inventory_id: inventory.id}), method: :post %>
         <% end %>
       <% end %>
     </li>

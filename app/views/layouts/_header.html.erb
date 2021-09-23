@@ -7,12 +7,17 @@
       <%= link_to "Book Shop", root_path, class:"navbar-brand" %>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Log Out", destroy_user_session_path, class: "nav-link", :method => :delete%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Configure Account", edit_user_registration_path, class: "nav-link"%>
+          </li>
+          <% if current_user.user_type == 'seller' %>
             <li class="nav-item">
-              <%= link_to "Log Out", destroy_user_session_path, class: "nav-link", :method => :delete%>
+              <%= link_to "My inventory", inventory_index_path, class: "nav-link"%>
             </li>
-            <li class="nav-item">
-              <%= link_to "Configure Account", edit_user_registration_path, class: "nav-link"%>
-            </li>
+          <% end %>
         <% else %>
             <li class="nav-item">
               <%= link_to "Sign Up", new_user_registration_path, class: "nav-link"%>

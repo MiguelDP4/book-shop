@@ -1,4 +1,6 @@
 class CartController < ApplicationController
+  before_action :logged_in_user, only: %i[index update delete]
+
   def index
     @cart_items = current_user.cart.cart_items
   end
@@ -18,6 +20,18 @@ class CartController < ApplicationController
     redirect_to request.referrer
   end
 
+  def add_to_cart
+    if user_signed_in?
+      current_user.cart.add_cart_item(params[:inventory_id],1)
+    else
+      redirect_to root_page
+    end
+  end
+
+  def purchase
+    
+  end
+
   def delete
     @cart_item = CartItem.find(params[:cart_item_id])
     if @cart_item.delete
@@ -26,5 +40,12 @@ class CartController < ApplicationController
       flash[:danger] = "There's no more stock to add to your cart"
     end
 
+  end
+
+  private
+
+  def logged_in_user
+    flash[:danger] = 'Log in first to be able to create articles.' unless user_signed_in?
+    redirect_to new_user_session_url unless user_signed_in?
   end
 end
