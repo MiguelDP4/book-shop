@@ -1,4 +1,5 @@
 class Inventory < ApplicationRecord
+  default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
   validates :sale_price, presence: true
   validates :amount, presence: true
