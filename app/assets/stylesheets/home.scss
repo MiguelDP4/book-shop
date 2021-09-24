@@ -18,3 +18,37 @@ select {
   border-radius: .25rem;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  a{
+    text-decoration: none;
+    transition: 0.3s;
+    &:hover {
+      color:rgb(209, 119, 0);
+    }
+  }
+}
+
+.page, .next, .last, .first, .prev {
+  padding: 0.3em;
+  a{
+    text-decoration: none;
+    transition: 0.3s;
+    &:hover {
+      color:rgb(255, 163, 42);
+    }
+  }
+}
+.page {
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
+
+.current {
+  -webkit-box-shadow: inset 0px -1px 7px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: inset 0px -1px 7px 0px rgba(0,0,0,0.35);
+  box-shadow: inset 0px -1px 7px 0px rgba(0, 0, 0, 0.35);
+  border-radius: 45%;
+}

@@ -20,5 +20,6 @@ class HomeController < ApplicationController
     else
       @inventories = Inventory.all
     end
+    @inventories = @inventories.page(params[:page])
   end
 end
