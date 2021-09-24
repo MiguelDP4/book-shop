@@ -1,10 +1,15 @@
+<h2>Book Shop Simulator</h2>
 <div class="my-2">
-  <form class="d-flex">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-primary" type="submit">Search</button>
-  </form>
+  <%=form_with(model: @inventory, local:true, url: { action: 'index' }, html: { method: 'get' }, class: 'd-flex') do |f| %>
+    <%= f.text_field :search_term, class: "form-control me-2", placeholder: "Search" %>
+    <%= f.select(:search_type, [['Search by title', 'title'],
+                              ['Search by description', 'description'],
+                              ['Search by author', 'author'],
+                              ['Search by seller','seller']], {}, { :class => 'me-2' }) %>
+    <%= f.submit "Search", class: "btn btn-primary"%>
+  <% end %>
 </div>
-<ul class="list-group">
+<ul class="list-group mb-3">
   <% @inventories.each do |inventory| %>
     <li class="list-group-item">
       <b>Seller: </b><%= link_to inventory.user.name, user_path(inventory.user) %><br/>
@@ -24,3 +29,5 @@
     </li>
   <% end %>
 </ul>
+
+<%= paginate @inventories %>
