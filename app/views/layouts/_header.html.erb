@@ -39,9 +39,9 @@
             <% if current_user.user_type == "buyer" %>
               <li class="nav-item d-flex">
                 <%= link_to "My Shopping Cart", my_shopping_cart_path, class: "nav-link px-0" %>
-                <span class="nav-link px-0">
-                  (<%= cart_items %>)
-                </span>
+                <div class="d-flex flex-column justify-content-end">
+                  <span class="badge badge-danger"><%= cart_items %></span>
+                </div>
               </li>
             <%end%>
             <li class="nav-item">
@@ -49,10 +49,6 @@
             </li>
           </ul>
         <% end %>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
       </div>
      
     </div>

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get     'sale/index',                        to: 'sale#index'
   patch   'cart/delete',                       to: 'cart#delete'
   post    'cart/add_to_cart',                  to: 'cart#add_to_cart'
+  resources :user, only: [:show]
   devise_for :users, controllers: { registrations: "users/registrations" }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

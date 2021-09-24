@@ -3,6 +3,9 @@ class CartController < ApplicationController
 
   def index
     @cart_items = current_user.cart.cart_items
+    if @cart_items.count == 0
+      flash.now[:info] = "Your shopping cart is empty. Go get some books." 
+    end
   end
 
   def update
@@ -23,6 +26,7 @@ class CartController < ApplicationController
   def add_to_cart
     if user_signed_in?
       current_user.cart.add_cart_item(params[:inventory_id],1)
+      redirect_to request.referrer
     else
       redirect_to root_path
     end

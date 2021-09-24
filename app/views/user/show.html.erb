@@ -1,13 +1,14 @@
-<div class="my-2">
-  <form class="d-flex">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-primary" type="submit">Search</button>
-  </form>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= @user.name %></h5>
+    <h6 class="card-subtitle mb-2 text-muted">Email: <%= @user.email %></h6>
+    <p class="card-text">Phone Number: <%= @user.phone %></p>
+  </div>
 </div>
+<h2>Inventory</h2>
 <ul class="list-group">
   <% @inventories.each do |inventory| %>
     <li class="list-group-item">
-      <b>Seller: </b><%= link_to inventory.user.name, user_path(inventory.user) %><br/>
       <b>Title: </b><%= inventory.book.title %><br/>
       <b>Description: </b><%= inventory.book.description %><br/>
       <b>Author: </b><%= inventory.book.author %><br/>
