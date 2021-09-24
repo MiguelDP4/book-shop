@@ -1,0 +1,12 @@
+<ul class="list-group">
+  <% @sales.each do |sale| %>
+    <li class="list-group-item">
+      <b>Seller: </b><%= sale.inventory.user.name %><br/>
+      <b>Title: </b><%= sale.inventory.book.title %><br/>
+      <b>Description: </b><%= sale.inventory.book.description %><br/>
+      <b>Author: </b><%= sale.inventory.book.author %><br/>
+      <b>Unit Price when sold: </b>$<%= sale.unit_price %><br/>
+      <b>Amount sold: </b><%= sale.amount %><br/>
+    </li>
+  <% end %>
+</ul>

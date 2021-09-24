@@ -1,0 +1,24 @@
+<ul class="list-group">
+  <% @cart_items.each do |item| %>
+    <li class="list-group-item">
+      <b>Title: </b><%= item.inventory.book.title %><br/>
+      <b>Description: </b><%= item.inventory.book.description %><br/>
+      <b>Author: </b><%= item.inventory.book.author %><br/>
+      <b>Price: </b>$<%= item.inventory.sale_price %><br/>
+      <%=form_with(model: @cart_item, local:true, url: { action: 'update' }, html: { method: 'patch' }) do |f| %>
+        <%= hidden_field_tag 'cart_item_id', item.id %>
+        <b>Amount: </b> <%= f.text_field :amount, value: item.amount %>
+        <%= f.submit "Update", class: "btn btn-primary"%>
+      <% end %>
+      <%=form_with(model: @cart_item, local:true, url: { action: 'delete' }, html: { method: 'patch' }) do |f| %>
+        <%= hidden_field_tag 'cart_item_id', item.id %>
+        <%= f.submit "Remove from cart", class: "btn btn-danger"%>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% if @cart_items.count > 0%>
+<%= button_to "Pay with my balance", cart_purchase_path, 
+            class: "btn btn-success mt-1",
+            html: { method: 'post' } %>
+<% end %>

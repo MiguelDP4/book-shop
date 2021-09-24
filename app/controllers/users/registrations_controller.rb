@@ -12,11 +12,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
    def create
      super
-     if @user.user_type == "buyer"
+     if @user.user_type == 'buyer'
       @user.balance = 50.00
       if !@user.save
         flash[:danger] = 'Something went wrong. Try again later.'
         redirect_to root_path
+      else
+       @user.cart = Cart.new(total:0, user_id: @user.id )
       end
     end
    end
