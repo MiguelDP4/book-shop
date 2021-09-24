@@ -83,6 +83,9 @@ class Cart < ApplicationRecord
         buyer.balance -= c.amount * c.inventory.sale_price
         seller_user.balance += (c.inventory.sale_price - 1) * c.amount
         admin_user.balance += c.amount
+        seller_user.balance.round(2)
+        admin_user.balance.round(2)
+        buyer.balance.round(2)
         seller_user.save
         buyer.save
         admin_user.save
