@@ -1,4 +1,11 @@
 <h2>Book Shop Simulator</h2>
+<p>Come in and purchase books.
+ You get $50 when you create an account, you can buy as many books as you can afford with them.
+ The books are as real as the money you get when you open your account, that is to say, not at all.
+ Feel free to make a seller account as well and put as many books on sale as you want.
+ The revenue you generate selling these books is just as real as the books you sell as well.
+ Keep in mind, we keep $1 for each book you sell, so we won't allow you to sell books at a cheaper price than $1.
+ If your book is $1, you won't make any money, sadly.</p>
 <div class="my-2">
   <%=form_with(model: @inventory, local:true, url: { action: 'index' }, html: { method: 'get' }, class: 'd-flex') do |f| %>
     <%= f.text_field :search_term, class: "form-control me-2", placeholder: "Search" %>
