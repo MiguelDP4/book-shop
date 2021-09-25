@@ -1,3 +1,5 @@
+<h2>Your Shopping Cart <i class="bi bi-cart-fill"></i><h2>
+
 <%= link_to "Add more books", inventory_new_path, class: "btn btn-primary mb-1"%>
 <ul class="list-group">
   <% @books.each do |item| %>
@@ -14,3 +16,5 @@
     </li>
   <% end %>
 </ul>
+
+<%= paginate @books %>

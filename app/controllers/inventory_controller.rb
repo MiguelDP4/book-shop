@@ -2,7 +2,7 @@ class InventoryController < ApplicationController
   before_action :logged_in_user, only: %i[add_to_cart index]
   
   def index 
-   @books = current_user.inventories
+   @books = current_user.inventories.page(params[:page])
   end
 
   def update

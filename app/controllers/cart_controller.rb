@@ -3,6 +3,7 @@ class CartController < ApplicationController
 
   def index
     @cart_items = current_user.cart.cart_items
+    @cart = current_user.cart
     if @cart_items.count == 0
       flash.now[:info] = "Your shopping cart is empty. Go get some books." 
     end
