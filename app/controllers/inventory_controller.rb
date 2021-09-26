@@ -2,11 +2,13 @@ class InventoryController < ApplicationController
   before_action :logged_in_user, only: %i[add_to_cart index]
   
   def index 
-   @books = current_user.inventories.page(params[:page])
+    @books = Kaminari.paginate_array(current_user.inventories).page(params[:page])
   end
 
   def update
-    @inventory = CartItem.find(params[:inventory_id])
+    @inventory = Inventory.find(params[:inventory_id])
+    @inventory.update(inventory_params)
+    redirect_to request.referrer
   end
 
   def new
