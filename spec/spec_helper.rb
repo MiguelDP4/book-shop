@@ -17,7 +17,7 @@ require 'database_cleaner/active_record'
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   DatabaseCleaner.strategy = :truncation
-  config.after :each do
+  config.before :each do
     DatabaseCleaner.clean
   end
   # rspec-expectations config goes here. You can use an alternate

@@ -8,7 +8,7 @@ class InventoryController < ApplicationController
   def update
     @inventory = Inventory.find(params[:inventory_id])
     @inventory.update(inventory_params)
-    redirect_to request.referrer
+    redirect_to inventory_index_path
   end
 
   def new
