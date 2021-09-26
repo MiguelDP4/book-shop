@@ -1,10 +1,22 @@
+<h2>Book Shop Simulator</h2>
+<p>Come in and purchase books.
+ You get $50 when you create an account, you can buy as many books as you can afford with them.
+ The books are as real as the money you get when you open your account, that is to say, not at all.
+ Feel free to make a seller account as well and put as many books on sale as you want.
+ The revenue you generate selling these books is just as real as the books you sell as well.
+ Keep in mind, we keep $1 for each book you sell, so we won't allow you to sell books at a cheaper price than $1.
+ If your book is $1, you won't make any money, sadly.</p>
 <div class="my-2">
-  <form class="d-flex">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-primary" type="submit">Search</button>
-  </form>
+  <%=form_with(model: @inventory, local:true, url: { action: 'index' }, html: { method: 'get' }, class: 'd-flex') do |f| %>
+    <%= f.text_field :search_term, class: "form-control me-2", placeholder: "Search" %>
+    <%= f.select(:search_type, [['Search by title', 'title'],
+                              ['Search by description', 'description'],
+                              ['Search by author', 'author'],
+                              ['Search by seller','seller']], {}, { :class => 'me-2' }) %>
+    <%= f.submit "Search", class: "btn btn-primary"%>
+  <% end %>
 </div>
-<ul class="list-group">
+<ul class="list-group mb-3">
   <% @inventories.each do |inventory| %>
     <li class="list-group-item">
       <b>Seller: </b><%= link_to inventory.user.name, user_path(inventory.user) %><br/>
@@ -13,7 +25,7 @@
       <b>Author: </b><%= inventory.book.author %><br/>
       <b>Price: </b>$<%= inventory.sale_price %><br/>
       <b>Stock: </b><%= inventory.amount %><br/>
-      <%if user_signed_in? %>
+      <%if user_signed_in? && current_user.user_type == "buyer" %>
         <%if inventory.amount > 0%>
           <%= link_to raw('Add to cart <i class="bi bi-cart-fill"></i>'),
               cart_add_to_cart_path(params: {inventory_id: inventory.id}),
@@ -24,3 +36,5 @@
     </li>
   <% end %>
 </ul>
+
+<%= paginate @inventories %>

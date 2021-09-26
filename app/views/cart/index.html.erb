@@ -20,5 +20,5 @@
 <% if @cart_items.count > 0%>
 <%= button_to "Pay with my balance", cart_purchase_path, 
             class: "btn btn-success mt-1",
-            html: { method: 'post' } %>
+            html: { method: 'post' } %> <span><b>Total: </b>$<%= @cart.total %></span>
 <% end %>

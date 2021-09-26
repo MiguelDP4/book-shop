@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.1'
 
+gem 'kaminari'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
@@ -15,6 +16,10 @@ gem 'devise'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', ">= 3.9.0"
+  gem 'capybara'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner-active_record'
 end
 
 group :development do

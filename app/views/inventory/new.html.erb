@@ -13,11 +13,11 @@
   </div>
   <div class="form-group">
     <%= f.label :unit_price %>
-    <%= f.text_field :sale_price, class:"form-control" %>
+    <%= f.number_field :sale_price, class:"form-control", step: "0.01", value: "2.00", placeholder: "2.00" %>
   </div>
   <div class="form-group">
     <%= f.label :stock %>
-    <%= f.text_field :amount, class:"form-control" %>
+    <%= f.number_field :amount, class:"form-control", step: "1", value: "1", placeholder: "1" %>
   </div>
   <%= f.submit "Save to my Inventory", class:"btn btn-primary mt-1" %>
 <% end %>
