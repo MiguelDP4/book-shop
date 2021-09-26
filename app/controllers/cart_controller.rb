@@ -19,7 +19,10 @@ class CartController < ApplicationController
       end
     else
       subtract = @cart_item.amount - new_amount
-      @cart_item.cart.remove_cart_item(@cart_item.id, subtract)
+      response = @cart_item.cart.remove_cart_item(@cart_item.id, subtract) 
+      unless response == true
+        flash[:danger] = response
+      end
     end
     redirect_to request.referrer
   end
@@ -35,22 +38,25 @@ class CartController < ApplicationController
 
   def purchase
     cart = current_user.cart
-    if cart.process_sale
+    response = cart.process_sale
+    if response == true
       flash[:success] = "You've purchased your books, wait for your order to arrive at your address"
       redirect_to root_path
     else
+      flash[:danger] = response
       redirect_to request.referrer
     end
   end
 
   def delete
     @cart_item = CartItem.find(params[:cart_item_id])
-    if @cart_item.delete
+    cart = @cart_item.cart
+    if cart.remove_cart_item(@cart_item.id, @cart_item.amount)
       redirect_to request.referrer
     else
-      flash[:danger] = "There's no more stock to add to your cart"
+      error_messages = @cart_item.errors.objects.map {|o| o.full_message}
+      flash[:danger] = error_messages.flatten
     end
-
   end
 
   private
