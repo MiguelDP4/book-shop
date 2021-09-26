@@ -65,6 +65,7 @@ class Cart < ApplicationRecord
         total_sum += item.amount * item.sale_price
       end
       self.total = total_sum
+      self.total.round(2)
       self.save
     else
       self.total = 0
