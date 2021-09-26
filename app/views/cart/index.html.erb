@@ -5,12 +5,12 @@
       <b>Description: </b><%= item.inventory.book.description %><br/>
       <b>Author: </b><%= item.inventory.book.author %><br/>
       <b>Price: </b>$<%= item.inventory.sale_price %><br/>
-      <%=form_with(model: @cart_item, local:true, url: { action: 'update' }, html: { method: 'patch' }) do |f| %>
+      <%=form_with(model: @cart_item, local:true, url: { action: 'update' }, html: { method: 'put' }) do |f| %>
         <%= hidden_field_tag 'cart_item_id', item.id %>
         <b>Amount: </b> <%= f.text_field :amount, value: item.amount %>
         <%= f.submit "Update", class: "btn btn-primary"%>
       <% end %>
-      <%=form_with(model: @cart_item, local:true, url: { action: 'delete' }, html: { method: 'patch' }) do |f| %>
+      <%=form_with(model: @cart_item, local:true, url: { action: 'delete' }, html: { method: 'put' }) do |f| %>
         <%= hidden_field_tag 'cart_item_id', item.id %>
         <%= f.submit "Remove from cart", class: "btn btn-danger"%>
       <% end %>
