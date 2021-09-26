@@ -42,11 +42,20 @@ class Cart < ApplicationRecord
     end
     inventory = Inventory.find(cart_item.inventory_id)
     inventory.amount += amount
-    inventory.save
 
+    unless cart_item.valid?
+      error_messages = cart_item.errors.objects.map {|o| o.full_message}
+      return error_messages.flatten
+    end
+    unless inventory.valid?
+      error_messages = inventory.errors.objects.map {|o| o.full_message}
+      return error_messages.flatten
+    end
     cart_item.save
+    inventory.save
     self.save
     calculate_total
+    true
   end
 
   def calculate_total
@@ -92,9 +101,9 @@ class Cart < ApplicationRecord
         new_sale.save
       end
       buyer.cart.clear_cart_after_purchase
+      return true
     else
-      flash[:danger] = "You don't have enough balance to pay for this order."
-      return false
+      return "You don't have enough balance to pay for this order."
     end
   end
 
