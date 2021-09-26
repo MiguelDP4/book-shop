@@ -1,4 +1,4 @@
-<h2>Your Shopping Cart <i class="bi bi-cart-fill"></i><h2>
+<h2>Your Inventory <i class="bi bi-archive-fill"></i></h2>
 
 <%= link_to "Add more books", inventory_new_path, class: "btn btn-primary mb-1"%>
 <ul class="list-group">
@@ -7,11 +7,11 @@
       <b>Title: </b><%= item.book.title %><br/>
       <b>Description: </b><%= item.book.description %><br/>
       <b>Author: </b><%= item.book.author %><br/>
-      <%=form_with(model: @inventory, local:true, url: { action: 'update' }, html: { method: 'patch' }) do |f| %>
+      <%=form_with(model: @inventory, local:true, url: { action: 'update' }, html: { method: 'put' }) do |f| %>
         <%= hidden_field_tag 'inventory_id', item.id %>
-        <b>Price: </b> $<%= f.text_field :sale_price, value: item.sale_price %><br/>
-        <b>Amount: </b> <%= f.text_field :amount, value: item.amount %><br/>
-        <%= f.submit "Update"%>
+        <b>Price: </b> $<%= f.number_field :sale_price, value: item.sale_price, step: "0.01" %><br/>
+        <b>Amount: </b> <%= f.number_field :amount, value: item.amount %><br/>
+        <%= f.submit "Update", class: "btn btn-secondary"%>
       <% end %>
     </li>
   <% end %>

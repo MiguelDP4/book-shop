@@ -25,7 +25,7 @@
       <b>Author: </b><%= inventory.book.author %><br/>
       <b>Price: </b>$<%= inventory.sale_price %><br/>
       <b>Stock: </b><%= inventory.amount %><br/>
-      <%if user_signed_in? %>
+      <%if user_signed_in? && current_user.user_type == "buyer" %>
         <%if inventory.amount > 0%>
           <%= link_to raw('Add to cart <i class="bi bi-cart-fill"></i>'),
               cart_add_to_cart_path(params: {inventory_id: inventory.id}),
